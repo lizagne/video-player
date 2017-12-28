@@ -1,3 +1,4 @@
+import _ from 'lodash'; //that's how you call in lodash, to set up throttling
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/SearchBar';
@@ -38,10 +39,13 @@ class App extends Component {
 
 	//below on SearchBar we set up a function that says, when Searchbar calls onSearchTermChange it will take the term 
 	render() {
+	//debounce takes the inner function and returns a new function which can only be called every 300 milliseconds
+	const videoSearch = _.dbounce((term) => { this.videoSearch(term) }, 300);
+		
 		return (
 			<div>
 				<SearchBar 
-					onSearchTermChange={ term => this.videoSearch(term)}
+					onSearchTermChange={ videoSearch }
 					/>
 				<VideoDetail video={ this.state.selectedVideo } />
 				<VideoList 
