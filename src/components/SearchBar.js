@@ -34,15 +34,19 @@ class SearchBar extends Component {
  			<div className="search-bar">
  				<input 
  					value = { this.state.term }
- 					onChange={ event => this.setState({ term: event.target.value }) }/>
+ 					onChange={ event => this.onInputChange(event.target.value) }/>
 			</div>
 
 			//we could reference the state in the JSX like this:
 			//Value of the input: { this.state.term } it's calling the state, but with the event happening, which is the user typing in some text, then the state is set or changed with the method above, so it's live typing! 
-
-		)
+		);	
 	}
 
+	onInputChange(term) {
+			this.setState({term});
+			this.props.onSearchTermChange(term);
+		}
+}
 
 	//create a method for the event handler. Good to call it starting with on or handle, then the name of the element so Input, then what is going to happen so onInputChange:
 
@@ -55,8 +59,6 @@ class SearchBar extends Component {
 	// }
 
 	//we can refactor the event handler into one line inside the onChange method above
-
-}
 
 export default SearchBar;
 
