@@ -12,9 +12,37 @@ import React, { Component } from 'react'; //this is helping us tranlsate JSX int
 
 //We have to define a render method/function
 class SearchBar extends Component {
-	render() {
-		return <input onChange={ event => console.log(event.target.value) }/>;
+
+	//only class based components can have state, and you create state by calling the constructor method with props on it and then initialise state. It's called first automatically, when we create a new instance of searchbar eg.
+
+	constructor(props){
+		super(props); //
+
+		//this is initialising state, creating a new object and assign it to this.state. It will contain properties that we want to record. Term is short for Search term.
+		this.state = {
+			term: ''
+		};//once the user starts typing we want to update the object and the properties inside it.
+
+		//this is the only time that we manipulate state, when intialising it. Everywhere else, we use this.setState
+	} 
+
+
+	render() { //we should only ever manipulate the state with setState like this below: setState is a great and powerful method. We are recording state
+ 		return (
+
+ 			//input is now a controlled component
+ 			<div>
+ 				<input 
+ 					value = { this.state.term }
+ 					onChange={ event => this.setState({ term: event.target.value }) }/>
+			</div>
+
+			//we could reference the state in the JSX like this:
+			//Value of the input: { this.state.term } it's calling the state, but with the event happening, which is the user typing in some text, then the state is set or changed with the method above, so it's live typing! 
+
+		)
 	}
+
 
 	//create a method for the event handler. Good to call it starting with on or handle, then the name of the element so Input, then what is going to happen so onInputChange:
 
