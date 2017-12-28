@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import SearchBar from './components/SearchBar';
 import YTSearch from 'youtube-api-search';
 import VideoList from './components/VideoList';
+import VideoDetail from './components/VideoDetail';
+
+import './styles/style.css'
 
 //holding the YouTube key:
 const API_KEY = 'AIzaSyDEopTvv94ZF--tQ4R2J5hoozO_BnlgKyE';
@@ -15,12 +18,13 @@ class App extends Component {
 		super(props);
 
 		this.state = { 
-			videos: [] //needs to be an empty array because it's going to be a list
+			videos: [], //needs to be an empty array because it's going to be a list
+			selectedVideo: null
 		}
 
 		//setup a test search using the api //this is a network request, the first render of the component is going to be set to 0 or null, 
-		YTSearch({ key: API_KEY, term: 'surfboards'}, videos => {
-		this.setState({ videos }) //this calls the data that we need and it's an array of objects //I've shortened the last line from this.setState({ videos: videos})
+		YTSearch({ key: API_KEY, term: 'Ballet'}, videos => {
+		this.setState({ videos: videos, selectedVideo: videos[0] }) //this calls the data that we need and it's an array of objects //I've shortened the last line from this.setState({ videos: videos})
 		});	
 	}
 
@@ -29,10 +33,11 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<div> Hi! </div>
 				<SearchBar />
-				<VideoList videos={ this.state.videos } />
-
+				<VideoDetail video={ this.state.selectedVideo } />
+				<VideoList 
+					onVideoSelect={ selectedVideo => this.setState({ selectedVideo }) }
+					videos={ this.state.videos } />
 			</div>	
 
 		)
