@@ -32,9 +32,15 @@ class SearchBar extends Component {
 
  			//input is now a controlled component
  			<div className="search-bar">
+				<div className="header">	
+					<div className="logo">&#9658;</div>
+					<h1>YourTube</h1>
+				</div>
+ 				<h2>That video site, but without all the bumpf</h2>
  				<input 
  					value = { this.state.term }
- 					onChange={ event => this.onInputChange(event.target.value) }/>
+ 					onChange={ event => this.onInputChange(event.target.value) }
+ 					placeholder="Search for a video..."/>
 			</div>
 
 			//we could reference the state in the JSX like this:
